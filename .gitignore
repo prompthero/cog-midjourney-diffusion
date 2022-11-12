@@ -1,2 +1,3 @@
-
-*.ckpt
+.cog/
+__pycache__/
+diffusers-cache/
