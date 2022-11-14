@@ -6,19 +6,23 @@ from diffusers import StableDiffusionPipeline
 from pytorch_lightning import seed_everything
 from cog import BasePredictor, Input, Path
 
+DREAMBOOTH_MODEL_PATH="./midjourney-diffusion"
 
 class Predictor(BasePredictor):
     def setup(self):
         """Load the model into memory to make running multiple predictions efficient"""
-        print("Loading pipeline...")
-
-        model_id = "prompthero/midjourney-v4-diffusion"
-        cache_dir = "midjourney-diffusion-cache"
+        scheduler = DDIMScheduler(
+            beta_start=0.00085,
+            beta_end=0.012,
+            beta_schedule="scaled_linear",
+            clip_sample=False,
+            set_alpha_to_one=False,
+        )
         self.pipe = StableDiffusionPipeline.from_pretrained(
-            model_id,
-            torch_dtype=torch.float32,
-            cache_dir=cache_dir,
-            local_files_only=True,
+            DREAMBOOTH_MODEL_PATH,
+            scheduler=scheduler,
+            safety_checker=None,
+            torch_dtype=torch.float16,
         ).to("cuda")
 
     @torch.inference_mode()
