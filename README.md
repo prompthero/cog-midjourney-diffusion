@@ -1,4 +1,4 @@
-# Midjourney Diffusion on a `cog` container for the Replicate API
+# Midjourney Diffusion for the Replicate API
 
 Model: [Midjourney Diffusion](https://huggingface.co/prompthero/midjourney-v4-diffusion) 
 
