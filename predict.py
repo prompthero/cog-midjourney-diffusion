@@ -1,8 +1,8 @@
 import os
+import shutil
 from typing import List
-
 import torch
-from diffusers import StableDiffusionPipeline
+from diffusers import StableDiffusionPipeline, DDIMScheduler
 from pytorch_lightning import seed_everything
 from cog import BasePredictor, Input, Path
 
@@ -97,3 +97,4 @@ class Predictor(BasePredictor):
             output_paths.append(Path(output_path))
 
         return output_paths
+
